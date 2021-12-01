@@ -28,7 +28,7 @@
     "vue-dompurify-html": "^2.3.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.1.4",
+    "@commitlint/cli": "^15.0.0",
     "@commitlint/config-conventional": "^12.1.4",
     "husky": "^6.0.0",
     "@babel/eslint-parser": "^7.14.7",
