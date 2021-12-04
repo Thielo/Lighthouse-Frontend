@@ -48,8 +48,28 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
-    '@nuxtjs/proxy'
+    '@nuxtjs/proxy',
+    '@nuxtjs/i18n'
   ],
+
+  i18n: {
+    /* module options */
+    locales: [
+      {
+        code: 'en',
+        name: 'English',
+        file: 'en-US.js'
+      },
+      {
+        code: 'de',
+        name: 'Deutsch',
+        file: 'de-DE.js'
+      }
+    ],
+    lazy: true,
+    langDir: 'lang/',
+    defaultLocale: 'en'
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
