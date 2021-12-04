@@ -18,7 +18,7 @@
       </button>
       <div class="relative">
         <button class="relative z-10 block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none">
-          <img class="object-cover w-full h-full" :src="avatarUrl" alt="Your avatar">
+          <img class="object-cover w-full h-full" src="" alt="Your avatar">
         </button>
         <div class="fixed inset-0 z-10 w-full h-full" style="display: none;" />
         <div class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl" style="display: none;">
@@ -37,14 +37,6 @@ export default {
     pageTitle () {
       const title = this.$store.state.admin.title
       return title !== '' ? title : 'Admin'
-    },
-
-    avatarUrl () {
-      if (this.$store.state.user !== null) {
-        return `https://s.gravatar.com/avatar/${this.$store.state.user.avatar_hash}?s=80&r=x`
-      }
-
-      return require('assets/avatar_default.png')
     }
   }
 }
