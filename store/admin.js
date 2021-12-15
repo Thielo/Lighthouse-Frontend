@@ -1,9 +1,14 @@
 export const state = () => ({
-  title: ''
+  user: null,
+  title: 'Dashboard'
 })
 
 export const mutations = {
-  updatePagetitle (state, title) {
+  setUser (state, user) {
+    state.user = user
+  },
+
+  setTitle (state, title) {
     state.title = title
   }
 }

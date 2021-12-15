@@ -3,25 +3,41 @@
     <div class="mt-4 md:rounded flex flex-col bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-900 mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3">
       <div class="p-6 flex-1">
         <input-field
-          label="Kodex-Nummer"
-          input-type="number"
-          :value="number"
-          :min="1"
-          step="1"
-          wrapper-class="last:mb-0 mb-6"
-          @update:input="updateNumber"
+          label="Username"
+          :value="form.username"
+          name="username"
+          class="last:mb-0 mb-6"
+          @update:input="updateField"
         />
-        <input-editor
-          wrapper-class="last:mb-0 mb-6"
-          label="Kodex-Eintrag"
-          :model-value="content"
-          @update:modelValue="updateContent"
+
+        <input-field
+          label="E-Mail"
+          :value="form.email"
+          name="email"
+          class="last:mb-0 mb-6"
+          @update:input="updateField"
+        />
+
+        <input-field
+          label="Password"
+          :value="form.password"
+          name="password"
+          class="last:mb-0 mb-6"
+          @update:input="updateField"
+        />
+
+        <input-field
+          label="Password Confirm"
+          :value="form.password_confirm"
+          name="password_confirm"
+          class="last:mb-0 mb-6"
+          @update:input="updateField"
         />
         <input-button
-          wrapper-class="last:mb-0 mb-6"
-          @button:click="createEntry"
+          class="last:mb-0 mb-6"
+          @button:click="createUser"
         >
-          Speichern
+          {{ $t('admin.users.new.form.create') }}
         </input-button>
       </div>
     </div>
@@ -29,40 +45,34 @@
 </template>
 
 <script>
-import InputEditor from '~/components/form/InputEditor'
 import InputField from '~/components/form/InputField'
 import InputButton from '~/components/form/InputButton'
 
 export default {
   components: {
-    InputEditor,
     InputField,
     InputButton
   },
   layout: 'admin',
   data () {
     return {
-      number: 1,
-      content: ''
+      form: {
+        username: '',
+        email: '',
+        password: '',
+        password_confirm: ''
+      }
     }
   },
   mounted () {
-    this.$store.commit('setTitle', 'Neuer Eintrag')
+    this.$store.commit('admin/setTitle', this.$t('admin.users.new.title'))
   },
   methods: {
-    updateNumber (number) {
-      this.number = number
+    updateField (response) {
+      this.form[response.input] = response.value
     },
-    updateContent (data) {
-      this.content = data
-    },
-    createEntry () {
-      const postData = {
-        number: this.number,
-        text: this.content
-      }
-
-      this.$api.posts.create(postData).then((response) => {
+    createUser () {
+      this.$api.posts.create(this.form).then((response) => {
         console.log(response)
       })
     }

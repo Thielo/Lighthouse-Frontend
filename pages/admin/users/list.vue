@@ -14,7 +14,7 @@ export default {
     }
   },
   mounted () {
-    this.$store.commit('setTitle', 'Alle Kodex Einträge')
+    this.$store.commit('admin/setTitle', this.$t('admin.users.list.title'))
     this.$api.users.index().then((response) => {
       this.entries = response
     })
