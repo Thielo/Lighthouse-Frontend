@@ -4,7 +4,6 @@ export default async function ({ route, redirect, store, $api }) {
   // If the user is not authenticated
   const status = await $api.auth.user()
     .then((response) => {
-      console.log(response)
       store.commit('setUser', response)
       return true
     })

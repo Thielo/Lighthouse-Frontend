@@ -7,8 +7,8 @@ export default $axios => (resource, prefix) => ({
     return $axios.$post(`${prefix}/${resource}`, payload)
   },
 
-  show (id) {
-    return $axios.$get(`${prefix}/${resource}/${id}`)
+  show (hash) {
+    return $axios.$get(`${prefix}/${resource}/${hash}`)
   },
 
   update (payload, id) {

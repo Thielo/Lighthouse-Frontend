@@ -72,7 +72,8 @@ export default {
         password: this.password
       }
 
-      this.$api.auth.token().then(() => {
+      this.$api.auth.token().then((response) => {
+        console.log(response)
         this.$api.auth.login(userData).then(() => {
           this.$router.push({
             path: '/admin/dashboard'

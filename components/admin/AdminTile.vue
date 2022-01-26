@@ -1,6 +1,6 @@
 <template>
   <div :class="componentClass">
-    <div class="p-6 flex-1">
+    <div class="p-6 flex-1 md:rounded border-gray-100 dark:bg-gray-900/70 hover:shadow-lg transition-shadow duration-500 bg-white border dark:border-gray-800 mb-6 last:mb-0">
       <h3 v-if="title" class="text-gray-700 text-3xl font-medium mb-3">
         {{ title }}
       </h3>

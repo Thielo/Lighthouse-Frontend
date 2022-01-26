@@ -11,6 +11,14 @@ export default {
         navigation: 'All Users',
         title: 'All Users'
       },
+      update: {
+        title: 'Update User',
+        form: {
+          username: 'Username',
+          email: 'E-Mail Address',
+          update: 'Update User'
+        }
+      },
       new: {
         navigation: 'Create User',
         title: 'Create New User',

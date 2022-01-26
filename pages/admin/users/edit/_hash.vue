@@ -1,27 +1,28 @@
 <template>
   <div class="grid grid-cols-1 gap-6 mb-6 xl:grid-cols-4">
     <div class="mt-4 md:rounded flex flex-col bg-white border border-gray-100 dark:bg-gray-900 dark:border-gray-900 mb-6 lg:mb-0 lg:col-span-2 xl:col-span-3">
-      <div class="p-6 flex-1">
+      <div class="p-6 flex-1" v-if="user !== null">
         <input-field
-          label="Kodex-Nummer"
-          input-type="number"
-          :value="number"
-          :min="1"
-          step="1"
-          wrapper-class="last:mb-0 mb-6"
-          @update:input="updateNumber"
+          :label="$t('admin.users.update.form.username')"
+          :value="user.username"
+          name="username"
+          class="last:mb-0 mb-6"
+          @update:input="updateField"
         />
-        <input-editor
-          wrapper-class="last:mb-0 mb-6"
-          label="Kodex-Eintrag"
-          :model-value="content"
-          @update:modelValue="updateContent"
+
+        <input-field
+          :label="$t('admin.users.update.form.email')"
+          :value="user.email"
+          name="email"
+          class="last:mb-0 mb-6"
+          @update:input="updateField"
         />
+
         <input-button
-          wrapper-class="last:mb-0 mb-6"
-          @button:click="createEntry"
+          class="last:mb-0 mb-6"
+          @button:click="updateUser"
         >
-          Speichern
+          {{ $t('admin.users.update.form.update') }}
         </input-button>
       </div>
     </div>
@@ -29,44 +30,33 @@
 </template>
 
 <script>
-import InputEditor from '~/components/form/InputEditor'
 import InputField from '~/components/form/InputField'
 import InputButton from '~/components/form/InputButton'
 
 export default {
   components: {
-    InputEditor,
     InputField,
     InputButton
   },
   layout: 'admin',
   data () {
     return {
-      number: null,
-      content: null
+      user: null
     }
   },
   mounted () {
-    this.$api.posts.show(this.$route.params.hash).then((response) => {
-      this.$store.commit('setTitle', `Beitrag bearbeiten "${this.$route.params.hash}"`)
-      this.content = response.content
-      this.number = response.number
+    this.$api.users.show(this.$route.params.hash).then((response) => {
+      this.$store.commit('setTitle', `Nutzer bearbeiten "${this.$route.params.hash}"`)
+      // this.$t('admin.users.new.title')
+      this.user = response.data[0]
     })
   },
   methods: {
-    updateNumber (number) {
-      this.number = number
+    updateField (response) {
+      this.user[response.input] = response.value
     },
-    updateContent (data) {
-      this.content = data
-    },
-    createEntry () {
-      const postData = {
-        number: this.number,
-        text: this.content
-      }
-
-      this.$api.posts.create(postData).then((response) => {
+    updateUser () {
+      this.$api.users.update(this.user, this.user.hash).then((response) => {
         console.log(response)
       })
     }
