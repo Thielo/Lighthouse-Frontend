@@ -46,8 +46,7 @@ export default {
   },
   mounted () {
     this.$api.users.show(this.$route.params.hash).then((response) => {
-      this.$store.commit('setTitle', `Nutzer bearbeiten "${this.$route.params.hash}"`)
-      // this.$t('admin.users.new.title')
+      this.$store.commit('admin/setTitle', this.$t('admin.users.update.title', { user: this.$route.params.hash }))
       this.user = response.data[0]
     })
   },

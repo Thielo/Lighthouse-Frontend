@@ -23,7 +23,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="hover:bg-grey-lighter" v-for="(user, index) in entries" :key="`user-${index}`">
+          <tr class="hover:bg-gray-400" :class="{ 'bg-red-100' : user.deleted_at !== null}" v-for="(user, index) in entries" :key="`user-${index}`">
             <td class="py-4 px-6 border-b border-grey-light">
               <abbr :title="user.hash">{{ user.id }}</abbr>
             </td>
@@ -42,6 +42,9 @@
             <td class="py-4 px-6 border-b border-grey-light">
               <a :href="`/admin/users/edit/${user.hash}`" class="text-grey-lighter font-bold py-1 px-1 rounded text-xs bg-green hover:bg-green-dark">Edit</a>
               <a href="#" class="text-grey-lighter font-bold py-1 px-1 rounded text-xs bg-blue hover:bg-blue-dark">Threads</a>
+              <a v-if="user.deleted_at === null" :href="`/admin/users/delete/${user.hash}`" class="text-grey-lighter font-bold py-1 px-1 rounded text-xs bg-blue hover:bg-blue-dark">Delete</a>
+              <button v-if="user.deleted_at !== null" @click="restore(user.hash)" class="text-grey-lighter font-bold py-1 px-1 rounded text-xs bg-blue hover:bg-blue-dark">Restore</button>
+              <button v-if="user.deleted_at !== null" @click="forceDelete(user.hash)" class="text-grey-lighter font-bold py-1 px-1 rounded text-xs bg-blue hover:bg-blue-dark">Final Delete</button>
             </td>
           </tr>
         </tbody>
@@ -64,6 +67,14 @@ export default {
     this.$api.users.index().then((response) => {
       this.entries = response.data
     })
+  },
+  methods: {
+    forceDelete (hash) {
+      console.log('forceDelete!')
+    },
+    restore (hash) {
+      console.log('Restore!')
+    }
   }
 }
 </script>
